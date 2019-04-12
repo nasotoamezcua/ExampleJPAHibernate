@@ -1,0 +1,26 @@
+#Puerto
+server:
+  port: 8765
+ 
+spring:
+  ##DATASOURCE
+  datasource:
+    url: jdbc:mysql://localhost:3306/hibernate_example?useSSL=false
+    username: root
+    password: root
+   
+  ## Propiedades Hibernate 
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+    #show-sql: true
+      
+## Hibernate Logging
+logging:
+  level:
+    org:
+      hibernate:
+        SQL:  DEBUG 
