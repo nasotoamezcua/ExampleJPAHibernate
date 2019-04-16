@@ -21,14 +21,7 @@ public abstract class JpaService<T, D, PK extends Serializable>
 		List<D> list_ = getAssembler().getDTOListTransform(list);
 		return list_;
 	}
-
-	@Override
-	public D create(D d) throws Exception {
-		T t = getAssembler().getMappingTransform(d);
-		D d_ = getAssembler().getDTOTransform(getDAO().save(t));
-		return d_;
-	}
-
+	
 	@Override
 	public D findById(PK id) throws Exception {
 		T t = getDAO().findOne(id);
@@ -37,15 +30,19 @@ public abstract class JpaService<T, D, PK extends Serializable>
 	}
 
 	@Override
-	public D update(D d) throws Exception {
-		T t = getAssembler().getMappingTransform(d);
+	public D create(T t) throws Exception {
+		D d_ = getAssembler().getDTOTransform(getDAO().save(t));
+		return d_;
+	}
+
+	@Override
+	public D update(T t) throws Exception {
 		D d_ = getAssembler().getDTOTransform(getDAO().save(t));
 		return d_;
 	}
 	
 	@Override
-	public void delete(D d) throws Exception {
-		T t = getAssembler().getMappingTransform(d);
+	public void delete(T t) throws Exception {
 		getDAO().delete(t);
 	}
 

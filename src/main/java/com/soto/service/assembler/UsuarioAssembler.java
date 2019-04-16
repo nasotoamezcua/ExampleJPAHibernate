@@ -33,7 +33,7 @@ public class UsuarioAssembler extends Assembler<UsuarioDTO, Usuario>{
 			entity.setDireccion(direccionAssembler.getMappingTransform(dto.getDireccion()));
 		}
 		
-		if(!entity.getPermisos().isEmpty() &&  entity.getPermisos().size()>0) {
+		if(dto.getPermisos()!= null && !dto.getPermisos().isEmpty()) {
 			entity.setPermisos(permisoAssembler.getMappingListTransform(dto.getPermisos()));
 		}
 		
