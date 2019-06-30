@@ -48,4 +48,13 @@ public class UsuarioDireccion {
 	public void setNumeroPermisos(long numeroPermisos) {
 		this.numeroPermisos = numeroPermisos;
 	}
+
+	@Override
+	public String toString() {
+		return "UsuarioDireccion [nombre=" + nombre + ", calle=" + calle + ", codigoPostal=" + codigoPostal
+				+ ", numeroPermisos=" + numeroPermisos + "]";
+	}
+	
+	
+	
 }

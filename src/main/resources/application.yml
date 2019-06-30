@@ -2,12 +2,13 @@
 server:
   port: 8765
  
+ #Cambiar el username y password que correspondan
 spring:
   ##DATASOURCE
   datasource:
     url: jdbc:mysql://localhost:3306/hibernate_example?useSSL=false
     username: root
-    password: root
+    password: adminadmin
    
   ## Propiedades Hibernate 
   jpa:
