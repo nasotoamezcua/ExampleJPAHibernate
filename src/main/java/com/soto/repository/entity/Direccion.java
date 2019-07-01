@@ -14,6 +14,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SqlResultSetMapping;
+import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 
 import com.soto.modelo.UserDirResultMaping;
@@ -41,32 +42,49 @@ import com.soto.modelo.UserDirResultMaping;
   
   @NamedNativeQuery(
 		  name = "Direccion.getSinResultClassFindByCodigoPostal", 
-		  query = "SELECT * FROM direcciones WHERE codigo_postal = :codigoPostal")
+		  query = "SELECT * FROM direcciones WHERE codigo_postal = :codigoPostal"),
+  
+  
+  /*Referencia: 
+  * 	https://arprastsoft.wordpress.com/2016/12/26/namednativequery-and-sqlresultsetmapping-in-spring-jpa/
+  * 	https://blog.jooq.org/tag/sqlresultsetmapping/
+  * 	http://www.java2s.com/Tutorial/Java/0355__JPA/SqlResultSetMappingWithEntityResultAndFieldResult.htm
+  * 	https://danielme.com/2018/06/30/sql-nativo-con-jpa-e-hibernate/
+  */
+		  
+  @NamedNativeQuery(name = "Direccion.userDirResultMaping",
+  query = " select u.id,u.nombre, u.username, u.password, d.calle, codigo_postal "
+  		+ " from usuarios u, direcciones d "
+  		+ " where  u.direccion_id = d.id ",
+  resultSetMapping = "Direccion.userDirResultMaping"
+  )
+  
 })
 
-/*
- * 
+
+/*Referencia: 
+ * 	https://arprastsoft.wordpress.com/2016/12/26/namednativequery-and-sqlresultsetmapping-in-spring-jpa/
+ * 	https://blog.jooq.org/tag/sqlresultsetmapping/
+ * 	http://www.java2s.com/Tutorial/Java/0355__JPA/SqlResultSetMappingWithEntityResultAndFieldResult.htm
+ * 	https://danielme.com/2018/06/30/sql-nativo-con-jpa-e-hibernate/
  */
-//Referencia: https://arprastsoft.wordpress.com/2016/12/26/namednativequery-and-sqlresultsetmapping-in-spring-jpa/
-@NamedNativeQuery(name = "Direccion.userDirResultMaping",
-query = " select u.id,u.nombre, u.username, u.password, d.calle, codigo_postal "
-		+ " from usuarios u, direcciones d "
-		+ " where  u.direccion_id = d.id ",
-resultSetMapping = "Direccion.userDirResultMaping"
-)
-@SqlResultSetMapping(name = "Direccion.userDirResultMaping",
-classes = {
-    @ConstructorResult(
-            targetClass = UserDirResultMaping.class,
-            columns = {
-                @ColumnResult(name = "id", type = long.class),
-                @ColumnResult(name = "nombre", type = String.class),
-                @ColumnResult(name = "username", type = String.class),
-                @ColumnResult(name = "password", type = String.class),
-                @ColumnResult(name = "calle", type = String.class),
-                @ColumnResult(name = "codigo_postal", type = String.class)
-            })
+@SqlResultSetMappings({
+	@SqlResultSetMapping(name = "Direccion.userDirResultMaping",
+			classes = {
+			    @ConstructorResult(
+			            targetClass = UserDirResultMaping.class,
+			            columns = {
+			                @ColumnResult(name = "id", type = long.class),
+			                @ColumnResult(name = "nombre", type = String.class),
+			                @ColumnResult(name = "username", type = String.class),
+			                @ColumnResult(name = "password", type = String.class),
+			                @ColumnResult(name = "calle", type = String.class),
+			                @ColumnResult(name = "codigo_postal", type = String.class)
+			            })
+			})
 })
+
+
 
 public class Direccion implements Serializable{
 	

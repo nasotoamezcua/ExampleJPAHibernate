@@ -87,5 +87,7 @@ public interface IDireccionDAO extends JpaRepository<Direccion, Long> {
 	 * @return
 	 */
 	List<UserDirResultMaping> userDirResultMaping();
+	
+	
 
 }

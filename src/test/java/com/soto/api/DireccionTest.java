@@ -115,6 +115,9 @@ public class DireccionTest {
 		}
 	}
 	
+	/*
+	 * Utilizando @SqlResultSetMapping
+	 */
 	@Test
 	public void userDirResultMapingTest(){
 		List<UserDirResultMaping> lista = dao.userDirResultMaping();
